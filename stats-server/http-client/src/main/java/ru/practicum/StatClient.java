@@ -30,7 +30,6 @@ public class StatClient {
             throw new RuntimeException("Can`t add Hit" + ex.getMessage());
         }
     }
-
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, Boolean unique) {
         Map<String, Object> params = Map.of(
                 "start", start,
@@ -44,6 +43,4 @@ public class StatClient {
             throw new RuntimeException("Can`t get stats" + ex.getMessage());
         }
     }
-
-
 }

@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   stats-server:
-    build: ./stats_server/HTTP_service
+    build: ./stats-server/http-service
     ports:
       - "9090:9090"
     depends_on:
