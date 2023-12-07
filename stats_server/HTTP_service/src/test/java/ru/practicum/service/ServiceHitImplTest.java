@@ -43,7 +43,6 @@ class ServiceHitImplTest {
 
     @Test
     void addHit() {
-
         when(repositoryHit.save(hit)).thenReturn(hit);
         HitDto actualHitDto = serviceHit.addHit(hitDto);
 
