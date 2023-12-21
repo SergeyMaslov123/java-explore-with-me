@@ -89,8 +89,7 @@ public class RequestServiceImpl implements RequestService {
         List<ParticipationRequestDto> rejectedRequests = new ArrayList<>();
 
         if (event.getParticipantLimit() == 0 || event.getRequestModeration().equals(false)) {
-            requests.forEach(request ->
-            {
+            requests.forEach(request -> {
                 request.setStatusRequest(StatusRequest.CONFIRMED);
                 requestRepository.save(request);
                 confirmedRequests.add(RequestMapper.toRequestDto(request));
