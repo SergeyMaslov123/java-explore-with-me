@@ -2,13 +2,11 @@ package ru.practicum.controller.pub;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.HitDto;
 import ru.practicum.dto.eventDto.EventDto;
 import ru.practicum.dto.eventDto.EventFullDto;
 import ru.practicum.service.eventService.EventService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,12 +33,6 @@ public class EventPublicController {
 
     @GetMapping("/{id}")
     EventFullDto getEventForId(@PathVariable Integer id, HttpServletRequest request) {
-        HitDto hitDto = new HitDto(
-                "ewm service",
-                request.getRequestURI(),
-                request.getRemoteAddr(),
-                LocalDateTime.now().toString()
-        );
         return eventService.getEventForIdPublic(id, request);
     }
 
