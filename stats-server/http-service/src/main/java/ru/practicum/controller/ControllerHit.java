@@ -1,6 +1,7 @@
 package ru.practicum.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ViewStat;
 import ru.practicum.HitDto;
@@ -14,6 +15,7 @@ public class ControllerHit {
     private final ServiceHit serviceHit;
 
     @PostMapping("/hit")
+    @ResponseStatus(HttpStatus.CREATED)
     public HitDto addHit(@RequestBody HitDto hitDto) {
         return serviceHit.addHit(hitDto);
     }
