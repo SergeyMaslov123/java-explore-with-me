@@ -43,7 +43,7 @@ class ControllerHitTest {
         String result = mockMvc.perform(post("/hit")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(hitDto)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

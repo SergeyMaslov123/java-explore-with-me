@@ -6,6 +6,7 @@ import ru.practicum.ViewStat;
 import ru.practicum.HitDto;
 import ru.practicum.hit.Hit;
 import ru.practicum.hit.HitMapper;
+import ru.practicum.hit.ValidEx;
 import ru.practicum.rep.RepositoryHit;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,9 @@ public class ServiceHitImpl implements ServiceHit {
     public List<ViewStat> getHit(String start, String end, List<String> urisList, Boolean unique) {
         LocalDateTime startDate = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         LocalDateTime endDate = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        if (startDate.isAfter(endDate)) {
+            throw new ValidEx("start if after end");
+        }
         if (urisList == null || urisList.isEmpty()) {
             if (unique) {
                 return repositoryHit.getUniqueStat(startDate, endDate);

@@ -1,5 +1,6 @@
 package ru.practicum;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Map;
 public class StatClient {
     private final RestTemplate restTemplate;
 
+    @Autowired
     public StatClient(@Value("${stat-service.url}") String statServiceUrl, RestTemplateBuilder builder) {
         this.restTemplate = builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(statServiceUrl))
