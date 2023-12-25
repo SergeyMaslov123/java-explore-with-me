@@ -622,5 +622,4 @@ public class EventServiceImpl implements EventService {
         event.setRate(rate);
         eventRepository.save(event);
     }
-
 }
