@@ -622,4 +622,14 @@ public class EventServiceImpl implements EventService {
         event.setRate(rate);
         eventRepository.save(event);
     }
+
+    @Override
+    public void deleteAll() {
+        likeRepository.deleteAll();
+        eventRepository.deleteAll();
+        locationRepository.deleteAll();
+        categoriesRepository.deleteAll();
+        requestRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 }

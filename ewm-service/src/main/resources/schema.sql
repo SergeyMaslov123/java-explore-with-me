@@ -65,6 +65,6 @@ create TABLE IF NOT EXISTS Likes (
   event_id BIGINT,
   like_event BOOLEAN,
   CONSTRAINT pk_like PRIMARY KEY (user_id, event_id),
-  CONSTRAINT fk_like_to_user FOREIGN KEY(user_id) REFERENCES Users(id),
-  CONSTRAINT fk_like_to_event FOREIGN KEY(event_id) REFERENCES Events(id)
+  CONSTRAINT fk_like_to_user FOREIGN KEY(user_id) REFERENCES Users(id) ON DELETE CASCADE,
+  CONSTRAINT fk_like_to_event FOREIGN KEY(event_id) REFERENCES Events(id) ON DELETE CASCADE
 );
