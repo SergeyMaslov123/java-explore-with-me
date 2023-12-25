@@ -107,5 +107,4 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     Page<Event> findAllEventNotDateLike(String text, Boolean paid, List<Integer> categories, LocalDateTime now, Pageable pageable);
 
 
-
 }

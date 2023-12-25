@@ -40,10 +40,11 @@ public class EventPublicController {
 
     @GetMapping("/likes/{eventId}")
     EventLikeFullDto getEventLikeForId(@PathVariable Integer eventId, HttpServletRequest request) {
-        return eventService.getEventLikePublic(eventId,request);
+        return eventService.getEventLikePublic(eventId, request);
     }
+
     @GetMapping("/likes")
-    List<EventLikeShotDto> getAllEventsLike (
+    List<EventLikeShotDto> getAllEventsLike(
             @RequestParam(required = false) String text,
             @RequestParam(required = false) List<Integer> categories,
             @RequestParam(required = false) Boolean paid,

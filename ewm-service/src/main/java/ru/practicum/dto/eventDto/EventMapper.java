@@ -98,6 +98,7 @@ public class EventMapper {
                 event.getViews()
         );
     }
+
     public static EventLikeShotDto toEventLikeShotDtoFromEvent(Event event) {
         return new EventLikeShotDto(
                 event.getAnnotation(),
@@ -112,6 +113,7 @@ public class EventMapper {
                 event.getRate()
         );
     }
+
     public static EventLikeFullDto toEventLikeFullDtoFromEvent(Event event) {
         if (event.getPublishedOn() == null) {
             return new EventLikeFullDto(

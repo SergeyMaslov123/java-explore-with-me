@@ -35,10 +35,11 @@ public class EventPrivateController {
                           @RequestBody @Valid NewEventDto eventDto) {
         return eventService.addEventPrivate(userId, eventDto);
     }
+
     @PostMapping("/test/{userId}/events")
     EventFullDto addEventTest(@PathVariable @Positive Integer userId,
                               @RequestBody @Valid NewEventDto eventDto) {
-        return eventService.addEventPrivateTest(userId,eventDto);
+        return eventService.addEventPrivateTest(userId, eventDto);
     }
 
     @GetMapping("/{userId}/events/{eventId}")
@@ -68,40 +69,46 @@ public class EventPrivateController {
         return requestService.updateRequest(userId, eventId, eventRequestStatusUpdateRequest);
 
     }
+
     @PostMapping("/likes/{userId}/{eventId}")
     EventLikeFullDto addLike(@PathVariable @Positive Integer userId,
                              @PathVariable @Positive Integer eventId,
                              @RequestParam Boolean like) {
-        return eventService.addLikePrivate(userId,eventId, like);
+        return eventService.addLikePrivate(userId, eventId, like);
     }
+
     @GetMapping("/likes/{userId}/events/{eventId}")
     EventLikeFullDto getEventForUserByEventId(@PathVariable @Positive Integer userId,
                                               @PathVariable @Positive Integer eventId) {
-        return eventService.getEventByIdForUserLikePrivate(eventId,userId);
+        return eventService.getEventByIdForUserLikePrivate(eventId, userId);
     }
+
     @GetMapping("/likes/{userId}/events")
-    List<EventLikeShotDto>  getEventsByUserLikes(@PathVariable @Positive Integer userId,
-                                                 @RequestParam(defaultValue = "0") Integer from,
-                                                 @RequestParam(defaultValue = "10") Integer size) {
-        return eventService.getEventsByUserLikePrivate(userId,from,size);
+    List<EventLikeShotDto> getEventsByUserLikes(@PathVariable @Positive Integer userId,
+                                                @RequestParam(defaultValue = "0") Integer from,
+                                                @RequestParam(defaultValue = "10") Integer size) {
+        return eventService.getEventsByUserLikePrivate(userId, from, size);
     }
+
     @DeleteMapping("/likes/{userId}/events/{eventId}")
     void deleteLike(@PathVariable @Positive Integer userId,
                     @PathVariable @Positive Integer eventId) {
-        eventService.deleteLikePrivate(eventId,userId);
+        eventService.deleteLikePrivate(eventId, userId);
     }
+
     @PatchMapping("/likes/{userId}/events/{eventId}")
     EventLikeFullDto updateLike(@PathVariable @Positive Integer userId,
                                 @PathVariable @Positive Integer eventId,
                                 @RequestParam Boolean like) {
-        return eventService.updateLikePrivate(userId,eventId, like);
+        return eventService.updateLikePrivate(userId, eventId, like);
     }
+
     @GetMapping("/likes/{userId}")
     List<EventLikeShotDto> getLikesByUser(@PathVariable @Positive Integer userId,
                                           @RequestParam(required = false) Boolean like,
                                           @RequestParam(defaultValue = "0") Integer from,
                                           @RequestParam(defaultValue = "10") Integer size) {
-        return eventService.getLikesByUserPrivate(userId,like,from,size);
+        return eventService.getLikesByUserPrivate(userId, like, from, size);
     }
 
 

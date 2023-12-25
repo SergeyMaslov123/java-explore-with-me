@@ -5,6 +5,7 @@ import lombok.Data;
 import ru.practicum.dto.categoriesDto.CategoriesDto;
 import ru.practicum.dto.userDto.UserShotDto;
 import ru.practicum.model.Location;
+
 @Data
 @AllArgsConstructor
 public class EventLikeFullDto {

@@ -3,6 +3,7 @@ package ru.practicum.dto.eventDto;
 import lombok.Value;
 import ru.practicum.dto.categoriesDto.CategoriesDto;
 import ru.practicum.dto.userDto.UserShotDto;
+
 @Value
 public class EventLikeShotDto {
     String annotation;

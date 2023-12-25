@@ -16,8 +16,8 @@ public interface LikeRepository extends JpaRepository<Like, LikePk> {
             "l.likeEvent = :likeEvent")
     Double countByLikePk_event_idAndLikeEvent(Integer eventId, Boolean likeEvent);
 
-@Query("select l from Like l where l.id.user_id = :userId and " +
-        "((:likeEvent) IS NULL or l.likeEvent = :likeEvent)")
+    @Query("select l from Like l where l.id.user_id = :userId and " +
+            "((:likeEvent) IS NULL or l.likeEvent = :likeEvent)")
     Page<Like> findLikeByUser(Integer userId, Boolean likeEvent, Pageable pageable);
 
 }

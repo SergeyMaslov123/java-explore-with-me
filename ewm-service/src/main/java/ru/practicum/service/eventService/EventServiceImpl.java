@@ -1,6 +1,5 @@
 package ru.practicum.service.eventService;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -191,6 +190,7 @@ public class EventServiceImpl implements EventService {
 
         return EventMapper.toEventFullDtoFromEvent(eventRepository.save(event));
     }
+
     @Override
     public EventFullDto addEventPrivateTest(Integer userId, NewEventDto newEventDto) {
         Event event = EventMapper.toEventForNewEventDto(newEventDto);
@@ -369,6 +369,7 @@ public class EventServiceImpl implements EventService {
         }
         return EventMapper.toEventFullDtoFromEvent(eventRepository.save(oldEvent));
     }
+
     @Override
     public EventFullDto updateEventAdminTest(Integer eventId, UpdateEventAdminRequest updateEvent) {
         Event oldEvent = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundEx("event not found"));
@@ -479,7 +480,7 @@ public class EventServiceImpl implements EventService {
             throw new RuntimeException("некорректный запрос from, size");
         }
         Pageable pageable = PageRequest.of(from > 0 ? from / size : 0, size);
-        List<Like> likes = likeRepository.findLikeByUser(userId,like, pageable).toList();
+        List<Like> likes = likeRepository.findLikeByUser(userId, like, pageable).toList();
         List<Integer> idsEvent = likes.stream()
                 .map(like1 -> like1.getId().getEvent_id())
                 .collect(Collectors.toList());
@@ -492,7 +493,7 @@ public class EventServiceImpl implements EventService {
     public EventLikeFullDto updateLikePrivate(Integer userId, Integer eventId, Boolean like) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundEx("not event"));
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundEx("not user"));
-        Like likeEvent = likeRepository.findById(new LikePk(userId,eventId)).orElseThrow(() -> new EntityNotFoundEx("not like"));
+        Like likeEvent = likeRepository.findById(new LikePk(userId, eventId)).orElseThrow(() -> new EntityNotFoundEx("not like"));
         likeEvent.setLikeEvent(like);
         likeRepository.save(likeEvent);
         updateRate(event);
@@ -617,7 +618,7 @@ public class EventServiceImpl implements EventService {
 
     private void updateRate(Event event) {
         Double rate = (likeRepository.countByLikePk_event_idAndLikeEvent(event.getId(), true) /
-                likeRepository.countByLikePk_event_id(event.getId()))*10;
+                likeRepository.countByLikePk_event_id(event.getId())) * 10;
         event.setRate(rate);
         eventRepository.save(event);
     }
