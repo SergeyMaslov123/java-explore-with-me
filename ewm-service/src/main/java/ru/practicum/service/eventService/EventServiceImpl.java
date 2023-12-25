@@ -482,7 +482,7 @@ public class EventServiceImpl implements EventService {
         Pageable pageable = PageRequest.of(from > 0 ? from / size : 0, size);
         List<Like> likes = likeRepository.findLikeByUser(userId, like, pageable).toList();
         List<Integer> idsEvent = likes.stream()
-                .map(like1 -> like1.getId().getEvent_id())
+                .map(like1 -> like1.getId().getEventId())
                 .collect(Collectors.toList());
         return eventRepository.findAllByIdInOrderByRateDesc(idsEvent).stream()
                 .map(EventMapper::toEventLikeShotDtoFromEvent)

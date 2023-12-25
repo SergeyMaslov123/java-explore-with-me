@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikePk implements Serializable {
-    private Integer user_id;
-    private Integer event_id;
+    private Integer userId;
+    private Integer eventId;
 
 }
