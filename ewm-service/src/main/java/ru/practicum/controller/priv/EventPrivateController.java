@@ -110,8 +110,9 @@ public class EventPrivateController {
                                           @RequestParam(defaultValue = "10") Integer size) {
         return eventService.getLikesByUserPrivate(userId, like, from, size);
     }
+
     @DeleteMapping("/deleteAll")
-    void deleteAllBD(){
+    void deleteAllBD() {
         eventService.deleteAll();
     }
 }

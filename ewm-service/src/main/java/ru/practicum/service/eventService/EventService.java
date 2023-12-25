@@ -65,6 +65,7 @@ public interface EventService {
                                                Integer from,
                                                Integer size,
                                                HttpServletRequest request);
+
     void deleteAll();
 
 
