@@ -65,4 +65,47 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
 
     Boolean existsByCategory_Id(Integer id);
+
+    List<Event> findAllByIdInOrderByRateDesc(List<Integer> ids);
+
+    @Query("Select e from Event e where ((:text) IS NULL or (upper(e.annotation) like upper(concat('%',:text, '%'))" +
+            " or upper(e.description) like upper(concat('%', :text, '%')))) " +
+            "and e.state = 'PUBLISHED' " +
+            "and ((:paid) IS NULL or e.paid = :paid) " +
+            "and ((:categories) IS NULL or e.category.id in :categories) " +
+            "and e.eventDate between :start and :end " +
+            "and (e.participantLimit = 0 or e.confirmedRequests < e.participantLimit) " +
+            "ORDER BY e.rate DESC")
+    Page<Event> findAllEventOnlyAvailableWithDateLike(String text, Boolean paid, List<Integer> categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
+
+    @Query("Select e from Event e where ((:text) IS NULL or (upper(e.annotation) like upper(concat('%',:text, '%'))" +
+            " or upper(e.description) like upper(concat('%', :text, '%')))) " +
+            "and e.state = 'PUBLISHED' " +
+            "and ((:paid) IS NULL or e.paid = :paid) " +
+            "and ((:categories) IS NULL or e.category.id in :categories) " +
+            "and e.eventDate > :now  " +
+            "and (e.participantLimit = 0 or e.confirmedRequests < e.participantLimit) " +
+            "ORDER BY e.rate DESC")
+    Page<Event> findAllEventOnlyAvailableNotDateLike(String text, Boolean paid, List<Integer> categories, LocalDateTime now, Pageable pageable);
+
+    @Query("Select e from Event e where ((:text) IS NULL or (upper(e.annotation) like upper(concat('%',:text, '%'))" +
+            " or upper(e.description) like upper(concat('%', :text, '%')))) " +
+            "and e.state = 'PUBLISHED' " +
+            "and ((:paid) IS NULL or e.paid = :paid) " +
+            "and ((:categories) IS NULL or e.category.id in :categories) " +
+            "and e.eventDate between :start and :end " +
+            "ORDER BY e.rate DESC")
+    Page<Event> findAllEventWithDateLike(String text, Boolean paid, List<Integer> categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
+
+    @Query("Select e from Event e where ((:text) IS NULL or (upper(e.annotation) like upper(concat('%',:text, '%'))" +
+            " or upper(e.description) like upper(concat('%', :text, '%')))) " +
+            "and e.state = 'PUBLISHED' " +
+            "and ((:paid) IS NULL or e.paid = :paid) " +
+            "and ((:categories) IS NULL or e.category.id in :categories) " +
+            "and e.eventDate > :now  " +
+            "ORDER BY e.rate DESC")
+    Page<Event> findAllEventNotDateLike(String text, Boolean paid, List<Integer> categories, LocalDateTime now, Pageable pageable);
+
+
+
 }

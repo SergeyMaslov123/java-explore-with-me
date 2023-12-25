@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.model.Request;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RequestRepository extends JpaRepository<Request, Integer> {
     List<Request> findAllByRequesterId(Integer userId);
@@ -13,5 +14,6 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
     List<Request> findAllByIdIn(List<Integer> ids);
 
     List<Request> findAllByEvent_id(Integer eventId);
+    Optional<Request> findByRequester_idAndEvent_id(Integer userId, Integer eventId);
 
 }
