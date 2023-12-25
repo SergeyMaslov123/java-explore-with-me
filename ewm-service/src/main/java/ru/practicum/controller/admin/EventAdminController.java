@@ -31,4 +31,10 @@ public class EventAdminController {
                              @RequestBody @Valid UpdateEventAdminRequest updateEventAdminRequest) {
         return eventService.updateEventAdmin(eventId, updateEventAdminRequest);
     }
+
+    @PatchMapping("/test/{eventId}")
+    EventFullDto updateEventTest(@PathVariable Integer eventId,
+                                 @RequestBody @Valid UpdateEventAdminRequest updateEventAdminRequest) {
+        return eventService.updateEventAdminTest(eventId, updateEventAdminRequest);
+    }
 }

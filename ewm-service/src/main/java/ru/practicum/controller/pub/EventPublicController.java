@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.eventDto.EventDto;
 import ru.practicum.dto.eventDto.EventFullDto;
+import ru.practicum.dto.eventDto.EventLikeFullDto;
+import ru.practicum.dto.eventDto.EventLikeShotDto;
 import ru.practicum.service.eventService.EventService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,4 +37,25 @@ public class EventPublicController {
     EventFullDto getEventForId(@PathVariable Integer id, HttpServletRequest request) {
         return eventService.getEventForIdPublic(id, request);
     }
+
+    @GetMapping("/likes/{eventId}")
+    EventLikeFullDto getEventLikeForId(@PathVariable Integer eventId, HttpServletRequest request) {
+        return eventService.getEventLikePublic(eventId, request);
+    }
+
+    @GetMapping("/likes")
+    List<EventLikeShotDto> getAllEventsLike(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) List<Integer> categories,
+            @RequestParam(required = false) Boolean paid,
+            @RequestParam(required = false) String rangeStart,
+            @RequestParam(required = false) String rangeEnd,
+            @RequestParam(defaultValue = "false") Boolean onlyAvailable,
+            @RequestParam(required = false) String sort,
+            @RequestParam(defaultValue = "0") Integer from,
+            @RequestParam(defaultValue = "10") Integer size,
+            HttpServletRequest request) {
+        return eventService.getEventsLikePublic(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
+    }
+
 }

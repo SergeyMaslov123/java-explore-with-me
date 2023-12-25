@@ -3,10 +3,7 @@ package ru.practicum.controller.priv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.dto.eventDto.EventFullDto;
-import ru.practicum.dto.eventDto.EventShotDto;
-import ru.practicum.dto.eventDto.NewEventDto;
-import ru.practicum.dto.eventDto.UpdateEventUserRequest;
+import ru.practicum.dto.eventDto.*;
 import ru.practicum.dto.requestDto.EventRequestStatusUpdateRequest;
 import ru.practicum.dto.requestDto.EventRequestStatusUpdateResult;
 import ru.practicum.dto.requestDto.ParticipationRequestDto;
@@ -39,9 +36,15 @@ public class EventPrivateController {
         return eventService.addEventPrivate(userId, eventDto);
     }
 
+    @PostMapping("/test/{userId}/events")
+    EventFullDto addEventTest(@PathVariable @Positive Integer userId,
+                              @RequestBody @Valid NewEventDto eventDto) {
+        return eventService.addEventPrivateTest(userId, eventDto);
+    }
+
     @GetMapping("/{userId}/events/{eventId}")
     EventFullDto getEventForEventId(@PathVariable @Positive Integer userId,
-                                    @PathVariable Integer eventId) {
+                                    @PathVariable @Positive Integer eventId) {
         return eventService.getEventByUserForEventIdPrivate(userId, eventId);
     }
 
@@ -67,5 +70,49 @@ public class EventPrivateController {
 
     }
 
+    @PostMapping("/likes/{userId}/{eventId}")
+    EventLikeFullDto addLike(@PathVariable @Positive Integer userId,
+                             @PathVariable @Positive Integer eventId,
+                             @RequestParam Boolean like) {
+        return eventService.addLikePrivate(userId, eventId, like);
+    }
 
+    @GetMapping("/likes/{userId}/events/{eventId}")
+    EventLikeFullDto getEventForUserByEventId(@PathVariable @Positive Integer userId,
+                                              @PathVariable @Positive Integer eventId) {
+        return eventService.getEventByIdForUserLikePrivate(eventId, userId);
+    }
+
+    @GetMapping("/likes/{userId}/events")
+    List<EventLikeShotDto> getEventsByUserLikes(@PathVariable @Positive Integer userId,
+                                                @RequestParam(defaultValue = "0") Integer from,
+                                                @RequestParam(defaultValue = "10") Integer size) {
+        return eventService.getEventsByUserLikePrivate(userId, from, size);
+    }
+
+    @DeleteMapping("/likes/{userId}/events/{eventId}")
+    void deleteLike(@PathVariable @Positive Integer userId,
+                    @PathVariable @Positive Integer eventId) {
+        eventService.deleteLikePrivate(eventId, userId);
+    }
+
+    @PatchMapping("/likes/{userId}/events/{eventId}")
+    EventLikeFullDto updateLike(@PathVariable @Positive Integer userId,
+                                @PathVariable @Positive Integer eventId,
+                                @RequestParam Boolean like) {
+        return eventService.updateLikePrivate(userId, eventId, like);
+    }
+
+    @GetMapping("/likes/{userId}")
+    List<EventLikeShotDto> getLikesByUser(@PathVariable @Positive Integer userId,
+                                          @RequestParam(required = false) Boolean like,
+                                          @RequestParam(defaultValue = "0") Integer from,
+                                          @RequestParam(defaultValue = "10") Integer size) {
+        return eventService.getLikesByUserPrivate(userId, like, from, size);
+    }
+
+    @DeleteMapping("/deleteAll")
+    void deleteAllBD() {
+        eventService.deleteAll();
+    }
 }
